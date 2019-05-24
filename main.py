@@ -37,8 +37,6 @@ ln_apply_c.insert(1, 'ln_apply_date', sp1)
 
 ln_apply_c = ln_apply_c.sort_values(by=['ln_apply_date'])
 
-ln_apply_c.head()
-
 #1-2. 生成特徵值
 ln_apply_c['target_60']=0
 ln_apply_c['target_60'][(ln_apply_c['ln_apply_date'] > 30) & (ln_apply_c['ln_apply_date'] <= 60)] = 1
@@ -64,7 +62,6 @@ fx_txn_f=fx_txn.copy()
 fx_txn_f = fx_txn_f.drop(['TXN_DT'], axis=1)
 fx_txn_f.head()
 fx_txn_f['fx_apply_c']=1
-fx_txn_f.head()
 
 fx_txn_f_2 = fx_txn_f.groupby('CUST_NO').agg('sum') 
 fx_txn_f_2.reset_index()
@@ -74,7 +71,6 @@ wm_txn_unique_id=wm_txn.copy()
 wm_txn_unique_id = wm_txn_unique_id.drop(['TXN_DT'], axis=1)
 wm_txn_unique_id.info()
 wm_txn_unique_id['WM_txn_c']=1
-wm_txn_unique_id.head()
 
 wm_txn_unique_id_2 = wm_txn_unique_id.groupby('CUST_NO').agg('sum') 
 wm_txn_unique_id_2.reset_index()
@@ -83,7 +79,13 @@ wm_txn_unique_id_2.reset_index()
 viewing_page = customer_behavior.copy()
 viewing_page['PAGE']=viewing_page.groupby(['CUST_NO']).transform('count')
 viewing_page = viewing_page.drop_duplicates(subset = 'CUST_NO', keep ='first')
-viewing_page.head()
 
 #將資料合併成Train_set 和test_set
+#train_set
+train_set = pd.concat([cif, test], sort = False)
+train_set = train_set.drop_duplicates(subset='CUST_NO', keep = False)
+train_set = train_set.drop(['CC_IND','FX_IND', 'LN_IND', 'WM_IND'], axis =1)
+ln_r_train = pd.merge(train_set, ln_data_3, on ='CUST_NO', how = 'left')  #將Train_set和信貸資料整合
+cc_ln_r = pd.merge(ln_r, cc_number_2, on = 'CUST_NO', how = 'left') #將Train_set和信用卡資料整合
+
 
