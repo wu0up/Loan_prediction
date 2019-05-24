@@ -82,10 +82,53 @@ viewing_page = viewing_page.drop_duplicates(subset = 'CUST_NO', keep ='first')
 
 #將資料合併成Train_set 和test_set
 #train_set
-train_set = pd.concat([cif, test], sort = False)
+train_set = pd.concat([cif, test], sort = False) #將test和cif整合成一個train_set
 train_set = train_set.drop_duplicates(subset='CUST_NO', keep = False)
 train_set = train_set.drop(['CC_IND','FX_IND', 'LN_IND', 'WM_IND'], axis =1)
 ln_r_train = pd.merge(train_set, ln_data_3, on ='CUST_NO', how = 'left')  #將Train_set和信貸資料整合
-cc_ln_r = pd.merge(ln_r, cc_number_2, on = 'CUST_NO', how = 'left') #將Train_set和信用卡資料整合
+cc_ln_r_train = pd.merge(ln_r_train, cc_number_2, on = 'CUST_NO', how = 'left') #將Train_set和信用卡資料整合
+fx_cc_ln_r_train = pd.merge(cc_ln_r_train, fx_txn_f_2, on = 'CUST_NO', how= 'left') #將Train_set和外匯資料整合
+ln_cc_fx_wm_r_train=pd.merge(fx_cc_ln_r_train, wm_txn_unique_id_2, on = 'CUST_NO', how = 'left') #將Train_set和信託類產品資料整合
+ln_cc_fx_wm_page_r_train=pd.merge(ln_cc_fx_wm_r_train, viewing_page_1, on = 'CUST_NO', how = 'left') #將train_set將瀏覽網頁資料整合
+#test_set
+ln_r=pd.merge(test, ln_data_3, on ='CUST_NO', how = 'left') #只有test only的資料
+ln_r=ln_r.drop(['CC_IND', 'FX_IND', 'LN_IND', 'WM_IND'], axis =1)
+cc_ln_r = pd.merge(ln_r, cc_number_2, on = 'CUST_NO', how = 'left')
+fx_cc_ln_r = pd.merge(cc_ln_r, fx_txn_f_2, on = 'CUST_NO', how= 'left')
+ln_cc_fx_wm_r=pd.merge(fx_cc_ln_r, wm_txn_unique_id_2, on = 'CUST_NO', how = 'left')
+ln_cc_fx_wm_page_r=pd.merge(ln_cc_fx_wm_r, viewing_page_1, on = 'CUST_NO', how = 'left')
+ln_cc_fx_wm_page_cif_r=pd.merge(ln_cc_fx_wm_page_r, cif_d, on = 'CUST_NO', how = 'left')
+ln_cc_fx_wm_page_cif_r['CUST_START_DT']=ln_cc_fx_wm_page_cif_r['CUST_START_DT']-9447
+ln_cc_fx_wm_page_cif_r.head()
 
+#填補缺失值
+values = {'target_60':0, 'target_90': 0,'target_120': 0,'AGE':-999, 'CHILDREN_CNT': -999,'CUST_START_DT':0, 'EDU_CODE': -999, 'INCOME_RANGE_CODE': -999, 'WORK_MTHS': -999,
+          'cc_apply_c': 0, 'FX_TXN_AMT': 0, 'fx_apply_c': 0, 'CUST_RISK_CODE':0, 'INVEST_TYPE_CODE':0, 'WM_TXN_AMT':0, 
+          'WM_txn_c':0, 'PAGE':0, 'Target':0,'LN_AMT':0}
+#test_set
+result_cif = ln_cc_fx_wm_page_cif_r.fillna(value=values)
+result_cif_1 = result_cif.drop(['GENDER_CODE', 'ln_apply_date','VISITDATE'], axis = 1)
+#train_set
+result_cif_train = ln_cc_fx_wm_page_r_train.fillna(value = values)
+result_cif_train_1 = result_cif_train.drop(['GENDER_CODE', 'ln_apply_date','VISITDATE'], axis = 1)
 
+#設定X和y
+#用未來當y, 現在當x
+test_set = result_cif_1.drop(['CUST_NO','target_60', 'target_90','target_120'], axis =1)
+train_set = result_cif_train_1.drop(['CUST_NO','target_60', 'target_90','target_120'], axis =1)
+train_y = result_cif_train_1.target_120
+
+df = test_set.iloc[:,:9]
+df.head()
+df.shape
+test_set_1 = test_set.drop(test_set.iloc[:,:9], axis=1)
+test_set_1.head()
+test_set_1.shape
+test_set_2 = pd.concat([test_set_1, df], axis =1)
+test_set_2.shape
+
+#使用model
+model = XGBClassifier()
+model.fit(train_set, train_y)
+y_pred = model.predict(test_set_2)
+df_predict = pd.DataFrame(y_pred, columns=['LN_IND'])
