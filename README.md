@@ -2,9 +2,7 @@
 https://tbrain.trendmicro.com.tw/Competitions/Details/5
 
 <H4>目標：</H4>
-提供顧客在玉山官網上120天的瀏覽行為、客戶基本資料及交易(/申請，預測顧客在之後的30天與玉山有哪些金融商品的往來。
-在此只展示信貸商品的預測
-由於此資料是使用前120天的行為去預測後30天的行為, 週期不長, 因此打算透過先使用90天及後30天的資料去訓練model,再去進行預測
+提供顧客在玉山官網上120天的瀏覽行為、客戶基本資料及交易(/申請，預測顧客在之後的30天與玉山的信貸往來狀況。
 
 
 <H4>本次使用的資料集：</H4>
@@ -35,21 +33,20 @@ https://tbrain.trendmicro.com.tw/Competitions/Details/5
 <H4>技巧：</H4>
 <ol>
 <li>特徵產生(Feature Generation)</li>
-<li>資料正規劃(Normalization)</li>
 <li>資料探勘(EDA)</li>
 <li>使用模型進行預測</li>
 <li>結論</li>
 </ol>
 
-<H4>1. 資料清洗：</H4>
-   日期顯示調整：因為9xxx不容易判斷, 將其調整為個位數
 <H4>1. 特徵產生(Feature Generation):</H4>
-  Train_set_y: 
+  Train_set_y:將90~120 day的交易當成y, 去訓練model
+  信用卡/外匯/: 產生特色
+  
 
-<H4>3. 資料探勘(EDA):</H4>
+<H4>2. 資料探勘(EDA):</H4>
 
 1. 各產品的次數與週期
-
+![image]https://github.com/wu0up/github_test/blob/master/pictures/Load.png
 2. user behavior的分析-產品類別和popular的url關聯
 
 2. 缺失值
@@ -64,3 +61,4 @@ https://tbrain.trendmicro.com.tw/Competitions/Details/5
 
 1. 為什麼選擇這個方法？
 2. 待加強的部分
+->將test的資料放到train資料集
