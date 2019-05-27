@@ -2,7 +2,7 @@
 https://tbrain.trendmicro.com.tw/Competitions/Details/5
 
 <H4>目標：</H4>
-提供顧客在玉山官網上120天的瀏覽行為、客戶基本資料及交易(/申請，預測顧客在之後的30天與玉山的信貸往來狀況。
+提供顧客在玉山官網上120天的瀏覽行為、客戶基本資料及交易(信貸申請, 信用卡申請, 外匯交易, 信託類產品交易)，預測顧客在之後的30天與玉山的信貸往來狀況。
 
 
 <H4>本次使用的資料集：</H4>
@@ -39,26 +39,32 @@ https://tbrain.trendmicro.com.tw/Competitions/Details/5
 </ol>
 
 <H4>1. 特徵產生(Feature Generation):</H4>
-  Train_set_y:將90~120 day的交易當成y, 去訓練model
-  信用卡/外匯/: 產生特色
+  信用卡/外匯/信託類產品: 有進行交易的設為1;
   
 
 <H4>2. 資料探勘(EDA):</H4>
 
-1. 各產品的次數與週期
-![image]https://github.com/wu0up/github_test/blob/master/pictures/Load.png
-2. user behavior的分析-產品類別和popular的url關聯
+<H6>a. 信貸申請次數 VS.天數</H6>
+透過趨勢圖, 可看出在月初和月底貸款申請人數較高;
 
-2. 缺失值
+![image](https://github.com/wu0up/github_test/blob/master/Picture/Loan.png)
 
-3. 相關
+<H6>b. 信貸申請和可能的url關聯</H6>
+
+![image](https://github.com/wu0up/github_test/blob/master/Picture/URL%20vs%20Loan.png)
+
+<H6>c. 缺失值</H6>
+
+![image]()
+
+
+<H6>d. 個特徵之間的相關性</H6>
+
+![image]()
+
 
 
 <H4>4. 使用模型進行預測：</H4>
 處理缺失值-> 產生特徵 ->使用方法
 
 <H4>5.結論：</H4>
-
-1. 為什麼選擇這個方法？
-2. 待加強的部分
-->將test的資料放到train資料集
