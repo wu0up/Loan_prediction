@@ -13,8 +13,6 @@ import matplotlib.pyplot as plt
 % pylab inline
 
 # 載入資料
-# 一併處理特徵工程，將dataset: **test** 附加於 **train** 後方，成為另一個dataset: **x_train**。
-
 customer_behavior= pd.read_csv('TBN_CUST_BEHAVIOR.csv')
 cc_apply = pd.read_csv('TBN_CC_APPLY.csv')
 cif= pd.read_csv('TBN_CIF.csv')
