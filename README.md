@@ -34,14 +34,14 @@ https://tbrain.trendmicro.com.tw/Competitions/Details/5
 <ol>
 <li>特徵產生(Feature Generation)</li>
 <li>資料探勘(EDA)</li>
+<li>缺失值補值</li>
 <li>使用模型進行預測</li>
 <li>結論</li>
 </ol>
 
 <H4>1. 特徵產生(Feature Generation):</H4>
-  信用卡/外匯/信託類產品: 有進行交易的設為1;
+  信用卡/外匯/信託類產品: 有進行交易的設為1，無則設為0;
   
-
 <H4>2. 資料探勘(EDA):</H4>
 
 <H6>a. 信貸申請次數 VS.天數</H6>
@@ -50,21 +50,23 @@ https://tbrain.trendmicro.com.tw/Competitions/Details/5
 ![image](https://github.com/wu0up/github_test/blob/master/Picture/Loan.png)
 
 <H6>b. 信貸申請和可能的url關聯</H6>
+觀察編碼後的URL，篩選出包含和信貸相關關鍵字-qodr的URL，再繪製每一天的URL拜訪數量，並和信貸申請人數比較；
 
 ![image](https://github.com/wu0up/github_test/blob/master/Picture/URL%20vs%20Loan.png)
 
 <H6>c. 缺失值</H6>
 
-![image]()
+
+![image](https://github.com/wu0up/github_test/blob/master/Picture/Missing_value.png)
 
 
-<H6>d. 個特徵之間的相關性</H6>
+<H6>d. 各特徵之間的相關性</H6>
 
-![image]()
+![image](https://github.com/wu0up/github_test/blob/master/Picture/feature.png)
 
 
 
 <H4>4. 使用模型進行預測：</H4>
-處理缺失值-> 產生特徵 ->使用方法
+<H5>Step 1. 處理缺失值-> 產生特徵 ->使用方法
 
 <H4>5.結論：</H4>
