@@ -1,4 +1,4 @@
-<H2>金融商品交易預測-信貸(Loan)</H2>
+<H2>信貸(Loan)交易預測</H2>
 https://tbrain.trendmicro.com.tw/Competitions/Details/5
 
 <H4>目標：</H4>
