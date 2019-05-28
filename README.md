@@ -73,4 +73,5 @@ a. 使用
 參考其它文獻及Kaggle競賽，因此使用XGBoost作為訓練模型；並利用Train_set的前90天資料作為X， 後30天資料作為y; 其中30%的資料集做為Validation set。
 
 <H4>5.結論：</H4>
-本次預測在信貸部分得到Validation set的Accuracy為
+本次預測Validation set的Accuracy為0.99。
+
