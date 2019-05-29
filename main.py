@@ -48,7 +48,7 @@ ln_data_3.reset_index()
 
 #特徵生成-信用卡申請
 cc_number = cc_apply.copy()
-cc_number = cc_number.drop(['TXN_DT'], axis=1) 將其他不要的欄位刪除
+cc_number = cc_number.drop(['TXN_DT'], axis=1) #將其他不要的欄位刪除
 
 cc_number.info()
 cc_number['cc_apply_c']=1
