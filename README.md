@@ -34,7 +34,6 @@ https://tbrain.trendmicro.com.tw/Competitions/Details/5
 <ol>
 <li>特徵產生(Feature Generation)</li>
 <li>資料探勘(EDA)</li>
-<li>資料前處理</li>
 <li>使用模型進行預測</li>
 <li>結論</li>
 </ol>
@@ -66,12 +65,9 @@ https://tbrain.trendmicro.com.tw/Competitions/Details/5
 ![image](https://github.com/wu0up/github_test/blob/master/Picture/feature.png)
 
 
-<H4>3. 資料前處理：</H4>
-a. 使用
-
-<H4>4. 使用模型進行預測：</H4>
+<H4>3. 使用模型進行預測：</H4>
 參考其它文獻及Kaggle競賽，因此使用XGBoost作為訓練模型；並利用Train_set的前90天資料作為X， 後30天資料作為y; 其中30%的資料集做為Validation set。
 
-<H4>5.結論：</H4>
+<H4>4.結論：</H4>
 本次預測Validation set的Accuracy為0.99。
 
